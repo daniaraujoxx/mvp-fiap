@@ -16,9 +16,11 @@ import java.util.List;
 public class Loja {
 
     @Id
-    private Long idLoja;
+    private Long id;
     private String nome;
     private String path;
+
+
 
 
 }

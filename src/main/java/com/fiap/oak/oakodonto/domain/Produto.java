@@ -13,8 +13,10 @@ import java.util.List;
 public class Produto {
 
     @Id
-    private Long idProduto;
+    private Long id;
     private String descricao;
+    private Double valor;
 
-
+    @ManyToOne
+    private Loja loja;
 }
