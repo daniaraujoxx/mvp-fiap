@@ -1,14 +1,11 @@
 package com.fiap.oak.oakodonto.resource;
 
 import com.fiap.oak.oakodonto.domain.Loja;
-import com.fiap.oak.oakodonto.domain.Produto;
+import com.fiap.oak.oakodonto.domain.LojaProduto;
+import com.fiap.oak.oakodonto.repository.LojaProdutoRepository;
 import com.fiap.oak.oakodonto.repository.LojaRepository;
-import com.fiap.oak.oakodonto.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,11 +14,30 @@ import java.util.List;
 public class LojaResource {
 
     @Autowired
-    LojaRepository repository;
+    LojaRepository lojaRepository;
+
+    @Autowired
+    LojaProdutoRepository lojaProdutoRepository;
 
     @GetMapping("/{nome}")
-    public List<Loja> findAllLoja(@PathVariable String nome){
-
-        return repository.findByNome(nome);
+    public List<Loja> findAllLojaByName(@PathVariable String nome){
+        return lojaRepository.findByNomeContainingIgnoreCase(nome);
     }
+
+    @GetMapping
+    public List<Loja> findAllLoja(){
+        return lojaRepository.findAll();
+    }
+
+    @PostMapping
+    public Loja createLoja(@RequestBody Loja loja){
+        return lojaRepository.save(loja);
+    }
+
+    @GetMapping("/produtoLoja")
+    public List<LojaProduto> findAllLojaProduto(){
+        return lojaProdutoRepository.findAll();
+    }
+
+
 }

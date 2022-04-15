@@ -1,13 +1,9 @@
 package com.fiap.oak.oakodonto.resource;
 
-import com.fiap.oak.oakodonto.domain.Loja;
 import com.fiap.oak.oakodonto.domain.Produto;
 import com.fiap.oak.oakodonto.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +16,18 @@ public class ProdutoResource {
 
     @GetMapping("/{descricao}")
     public List<Produto> findAllProdDesc(@PathVariable String descricao){
-
-        return repository.findByDescricao(descricao);
+        return repository.findByDescricaoContainingIgnoreCase(descricao);
     }
+
+    @GetMapping
+    public List<Produto> findAllProd(){
+        return repository.findAll();
+    }
+
+    @PostMapping
+    public Produto createProduto(@RequestBody Produto produto){
+        return repository.save(produto);
+    }
+
+
 }

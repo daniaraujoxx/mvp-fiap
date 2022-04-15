@@ -16,11 +16,9 @@ import java.util.List;
 public class Loja {
 
     @Id
-    private Integer id;
+    private Long idLoja;
     private String nome;
     private String path;
-    @ManyToMany(mappedBy="lojas")
-    private List<Produto> produtos;
 
 
 }
